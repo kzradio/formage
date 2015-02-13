@@ -494,8 +494,15 @@ $(function () {
                 }
             })
             .fail(function (jqXHR) {
-                var ret = jqXHR.responseJSON;
-                window.bootbox.alert("Save failed - " + ret.name + '\n' + ret.fields);
+                var ret = jqXHR.responseJSON,
+                    alert = "Save failed - " + ret.name;
+
+                if (ret.fields) {
+                    alert += "<br>";
+                    alert += ret.fields;
+                }
+
+                window.bootbox.alert(alert);
             })
             .always(function () {
                 setTimeout(function () {
