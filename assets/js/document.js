@@ -362,11 +362,16 @@ function initModal() {
             modal.parentSelector.change();
             return;
         }
+
         // on create
         var id = modal.parentSelector.val();
         if (response.id && !id) {
-            modal.parentSelector.find('option[selected]').removeAttr('selected');
-            modal.parentSelector.append('<option selected value="' + response.id + '" >' + response.label + '</option>');
+            if (modal.parentSelector.hasClass('socket-select')) {
+                modal.parentSelector.data('initialname', response.label);
+            } else {
+                modal.parentSelector.find('option[selected]').removeAttr('selected');
+                modal.parentSelector.append('<option selected value="' + response.id + '" >' + response.label + '</option>');
+            }
         }
         // on update
         if (response.id == id) {
